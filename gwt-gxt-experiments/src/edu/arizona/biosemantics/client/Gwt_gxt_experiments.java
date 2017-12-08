@@ -69,18 +69,15 @@ public class Gwt_gxt_experiments implements EntryPoint {
 
 		
 		area.addKeyPressHandler(new KeyPressHandler() {
-
 			@Override
 			public void onKeyPress(KeyPressEvent event) {
-				if(event.getCharCode() == '.' || event.getCharCode() == ';') {
+				if(event.getCharCode() == '.') {
 				  nameField.setText(area.getText().substring(area.getText().lastIndexOf(".") + 1).toString());
-				}
-				
+				}	
+				if(event.getCharCode() == ';') {
+					  nameField.setText(area.getText().substring(area.getText().lastIndexOf(";") + 1).toString());
+				}	
 			}
-			
-			
-			
-			
 		});
 
 		// Focus the cursor on the name field when the app loads
