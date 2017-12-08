@@ -71,12 +71,23 @@ public class Gwt_gxt_experiments implements EntryPoint {
 		area.addKeyPressHandler(new KeyPressHandler() {
 			@Override
 			public void onKeyPress(KeyPressEvent event) {
+				int dotIndex = area.getText().lastIndexOf(".");
+				int semiColonIndex = area.getText().lastIndexOf(";");
 				if(event.getCharCode() == '.') {
-				  nameField.setText(area.getText().substring(area.getText().lastIndexOf(".") + 1).toString());
+				  nameField.setText("");
+				  if(dotIndex > semiColonIndex) {   
+					nameField.setText(area.getText().substring(area.getText().lastIndexOf(".") + 1).toString());
+				  }else {
+				    nameField.setText(area.getText().substring(area.getText().lastIndexOf(";") + 1).toString());
+				  }			  
 				}	
-				if(event.getCharCode() == ';') {
-					  nameField.setText(area.getText().substring(area.getText().lastIndexOf(";") + 1).toString());
-				}	
+				else if(event.getCharCode() == ';') {
+			      if(dotIndex > semiColonIndex) {   
+				    nameField.setText(area.getText().substring(area.getText().lastIndexOf(".") + 1).toString());
+				   } else {
+				    nameField.setText(area.getText().substring(area.getText().lastIndexOf(";") + 1).toString());
+				   }
+				}
 			}
 		});
 
