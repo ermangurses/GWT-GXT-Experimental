@@ -6,17 +6,21 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.KeyboardListener;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -39,13 +43,16 @@ public class Gwt_gxt_experiments implements EntryPoint {
 	/**
 	 * This is the entry point method.
 	 */
+	@SuppressWarnings("deprecation")
 	public void onModuleLoad() {		
 		
 		final Button sendButton = new Button("Send");
 		final TextBox nameField = new TextBox();
 		nameField.setText("GWT User");
 		final Label errorLabel = new Label();
-
+		final String str;
+		
+		
 		// We can add style names to widgets
 		sendButton.addStyleName("sendButton");
 
@@ -57,10 +64,24 @@ public class Gwt_gxt_experiments implements EntryPoint {
 		RootPanel.get("nameFieldContainer").add(nameField);
 		RootPanel.get("sendButtonContainer").add(sendButton);
 		RootPanel.get("errorLabelContainer").add(errorLabel);
-
+        
 		RootPanel.get().add(area);
 
 		
+		area.addKeyPressHandler(new KeyPressHandler() {
+
+			@Override
+			public void onKeyPress(KeyPressEvent event) {
+				if(event.getCharCode() == '.' || event.getCharCode() == ';') {
+				  nameField.setText(area.getText().substring(area.getText().lastIndexOf(".") + 1).toString());
+				}
+				
+			}
+			
+			
+			
+			
+		});
 
 		// Focus the cursor on the name field when the app loads
 		nameField.setFocus(true);
